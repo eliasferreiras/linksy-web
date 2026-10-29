@@ -21,7 +21,7 @@ export default function FormLink({ createAction }) {
     }
 
     return (
-        <form action="#">
+        <form action="#" className="form-link">
             <div className="input-content inputUrl">
                 <h3>URL de destino</h3>
                 <input type="url" name="target_url" ref={targetUrlInput} placeholder="https://exemplo.com/link-longo" />

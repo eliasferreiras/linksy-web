@@ -1,0 +1,111 @@
+.auth-container {
+    background-color: var(--light-gray);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.auth-main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+
+    .auth-shadow-container {
+        background-color: var(--white);
+        border-radius: 18px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.01);
+        border: 1px solid var(--medium-gray);
+
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        max-width: 420px;
+        padding: 24px;
+        width: 100%;
+    }
+
+    img {
+        height: auto;
+        margin-bottom: 16px;
+        width: 80px;
+    }
+
+    h1 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        width: 100%;
+        text-align: left;
+    }
+
+    .auth-form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+
+        .auth-field {
+            min-width: 150px;
+
+            h3 {
+                font-size: 14px;
+                font-weight: 500;
+                margin-bottom: 5px;
+            }
+
+            input {
+                border: 1px solid var(--medium-gray);
+                border-radius: 8px;
+                font-size: 14px;
+                padding: 12px;
+                width: 100%;
+            }
+
+            input:focus {
+                border-color: var(--blue);
+                outline: none;
+            }
+        }
+
+        button {
+            background-color: var(--blue);
+            border: none;
+            border-radius: 8px;
+            color: var(--white);
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 24px;
+            padding: 13px;
+            transition: opacity 0.3s ease;
+
+            flex: auto;
+            align-self: stretch;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+    }
+
+    .auth-switch {
+        color: var(--gray);
+        font-size: 13px;
+        margin-top: 20px;
+        text-align: center;
+
+        a {
+            color: var(--blue);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    }
+}
+    
