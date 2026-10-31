@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import '../auth.css'
 import Footer from '../../components/Footer'
+import Routes from "../../../enums/routes";
 
 export default function Register() {
     function handleSubmit(event) {
@@ -64,7 +65,7 @@ export default function Register() {
                     </form>
 
                     <p className="auth-switch">
-                        Já tem uma conta? <Link to="/login" className="link">Entrar</Link>
+                        Já tem uma conta? <Link to={Routes.LOGIN}  className="link">Entrar</Link>
                     </p>
                 </section>
             </main>

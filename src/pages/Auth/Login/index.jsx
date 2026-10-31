@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from "react-router-dom";
 import { useSession } from "../../../contexts/SessionContext";
+import Routes from "../../../enums/routes";
 import '../auth.css'
 
 import Footer from '../../components/Footer'
@@ -86,7 +87,7 @@ export default function Login() {
                     )}
 
                     <p className="auth-switch">
-                        Ainda não tem uma conta? <Link to="/register" className="link">Cadastre-se</Link>
+                        Ainda não tem uma conta? <Link to={Routes.REGISTER} className="link">Cadastre-se</Link>
                     </p>
                 </section>
             </main>

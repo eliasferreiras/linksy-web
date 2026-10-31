@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router";
+import Routes from "../enums/routes";
 
 import PublicRoute from "../routes/PublicRoute";
 import ProtectedRoute from "../routes/ProtectedRoute";
@@ -10,13 +11,15 @@ import Home from "../pages/Home";
 const router = createBrowserRouter([
     {
         Component: ProtectedRoute,
-        children: [{ index: true, Component: Home }]
+        children: [
+            { path: Routes.HOME, Component: Home }
+        ]
     },
     {
         Component: PublicRoute,
         children: [
-            { path: "/login", Component: Login },
-            { path: "/register", Component: Register }
+            { path: Routes.LOGIN, Component: Login },
+            { path: Routes.REGISTER, Component: Register }
         ]
     }
 ]);

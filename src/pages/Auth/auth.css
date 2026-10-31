@@ -97,20 +97,6 @@
         }
     }
 
-    .auth-feedback {
-        font-size: 13px;
-        margin-top: 16px;
-        text-align: center;
-    }
-
-    .auth-feedback.error {
-        color: var(--dark-red);
-    }
-
-    .auth-feedback.success {
-        color: #267647;
-    }
-
     .auth-switch {
         color: var(--gray);
         font-size: 13px;
@@ -127,6 +113,20 @@
         .link:hover {
             text-decoration: underline;
         }
+    }
+
+    .auth-feedback {
+        font-size: 13px;
+        margin-top: 16px;
+        text-align: center;
+    }
+
+    .auth-feedback.error {
+        color: var(--dark-red);
+    }
+
+    .auth-feedback.success {
+        color: #267647;
     }
 }
     
