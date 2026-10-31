@@ -2,39 +2,47 @@ import { useState } from 'react'
 import { Link } from "react-router-dom";
 import { useSession } from "../../../contexts/SessionContext";
 import Routes from "../../../enums/routes";
-import '../auth.css'
+import authService from '../../../services/authService';
+import '../auth.css';
 
-import Footer from '../../components/Footer'
-import service from '../../../providers/requestProvider'
+import Footer from '../../components/Footer';
 
 export default function Login() {
-    const { login } = useSession();
+    const service = authService();
+    const session = useSession();
 
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [feedback, setFeedback] = useState(null)
 
     async function handleSubmit(event) {
         event.preventDefault()
+
         setFeedback(null)
         setIsSubmitting(true)
 
         const formData = new FormData(event.currentTarget)
+        const data = {
+            email: formData.get('email'),
+            password: formData.get('password')
+        }
 
         try {
-            await service.post('/auth/login', {
-                email: formData.get('email'),
-                password: formData.get('password')
-            })
-            setFeedback({ type: 'success', message: 'Login realizado com sucesso.' })
+            const userData = await service.login(data);
+            session.login(userData);
         } catch (error) {
-            console.error('Error logging in:', error)
-            const apiMessage = error.response?.data?.message
-            setFeedback({
-                type: 'error',
-                message: typeof apiMessage === 'string'
-                    ? apiMessage
-                    : 'Não foi possível fazer login. Verifique seus dados e tente novamente.'
-            })
+            const status = error.response?.status;
+
+            if (status === 400) {
+                setFeedback({
+                    type: 'error',
+                    message: 'E-mail ou senha inválidos.'
+                });
+            } else {
+                setFeedback({
+                    type: 'error',
+                    message: 'Não foi possível fazer login. Tente novamente.'
+                });
+            }
         } finally {
             setIsSubmitting(false)
         }
@@ -80,7 +88,6 @@ export default function Login() {
                     {feedback && (
                         <p
                             className={`auth-feedback ${feedback.type}`}
-                            role={feedback.type === 'error' ? 'alert' : 'status'}
                         >
                             {feedback.message}
                         </p>

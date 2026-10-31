@@ -9,18 +9,21 @@ export function SessionProvider({ children }) {
         return storedUser ? JSON.parse(storedUser) : null;
     });
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false); //!!user;
+    // const [token, setToken] = useState(() => {
+    //     const storedToken = localStorage.getItem("token");
+    //     return storedToken ? storedToken : null;
+    // });
 
-    function login() {
-        // localStorage.setItem("user", JSON.stringify(userData));
-        // setUser(userData);
-        setIsAuthenticated(true);
+    const isAuthenticated = !!user;
+
+    function login(userData) {
+        localStorage.setItem("user", JSON.stringify(userData));
+        setUser(userData);
     }
 
     function logout() {
-        // localStorage.removeItem("user");
-        // setUser(null);
-        setIsAuthenticated(false);
+        localStorage.removeItem("user");
+        setUser(null);
     }
 
     return (
