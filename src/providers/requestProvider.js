@@ -1,7 +1,7 @@
 import axios from "axios"
 
-const service = axios.create({
+const requestProvider = axios.create({
   baseURL: import.meta.env.VITE_API_URL || "http://localhost:8080"
 })
 
-export default service
+export default requestProvider

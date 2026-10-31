@@ -76,10 +76,11 @@
             border-radius: 8px;
             color: var(--white);
             cursor: pointer;
+            font: inherit;
             font-size: 14px;
             font-weight: 600;
             margin-top: 24px;
-            padding: 13px;
+            padding: 12px;
             transition: opacity 0.3s ease;
 
             flex: auto;
@@ -89,6 +90,25 @@
         button:hover {
             opacity: 0.85;
         }
+
+        button:disabled {
+            cursor: wait;
+            opacity: 0.7;
+        }
+    }
+
+    .auth-feedback {
+        font-size: 13px;
+        margin-top: 16px;
+        text-align: center;
+    }
+
+    .auth-feedback.error {
+        color: var(--dark-red);
+    }
+
+    .auth-feedback.success {
+        color: #267647;
     }
 
     .auth-switch {
@@ -97,13 +117,17 @@
         margin-top: 20px;
         text-align: center;
 
-        a {
+        button {
             color: var(--blue);
+            font: inherit;
+            font-size: 13px;
             font-weight: 600;
-            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
         }
 
-        a:hover {
+        button:hover {
             text-decoration: underline;
         }
     }

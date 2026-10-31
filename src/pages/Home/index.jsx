@@ -1,13 +1,13 @@
 import './style.css'
 import { useState, useEffect } from 'react'
-import homeViewModel from './viewModel'
+import service from '../../services/homeService'
 
-import Header from '../../components/Header'
-import CardLink from '../../components/CardLink'
-import FormLink from '../../components/FormLink'
-import Footer from '../../components/Footer'
-import Modal from '../../components/Modal'
-import ConfirmDelete from '../../components/ConfirmDelete'
+import Header from '../components/Header'
+import CardLink from '../components/CardLink'
+import FormLink from '../components/FormLink'
+import Footer from '../components/Footer'
+import Modal from '../components/Modal'
+import ConfirmDelete from '../components/ConfirmDelete'
 
 export default function Home() {
 
@@ -18,7 +18,7 @@ export default function Home() {
         fetchLinks,
         createLink,
         delteLink
-    } = homeViewModel()
+    } = service()
 
     var [openModal, setOpenModal] = useState(false)
 

@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import service from '../../services/service'
+import requestProvider from '../providers/requestProvider'
 
 export default function homeViewModel() {
     const [links, setLinks] = useState([])
 
     async function fetchLinks() {
         try {
-            const response = await service.get('/links')
+            const response = await requestProvider.get('/links')
             setLinks(response.data)
         } catch (error) {
             console.error('Error fetching links:', error)
@@ -15,7 +15,7 @@ export default function homeViewModel() {
 
     async function createLink(newLink) {
         try {
-            const response = await service.post('/links', newLink)
+            const response = await requestProvider.post('/links', newLink)
             setLinks([...links, response.data])
         } catch (error) {
             console.error('Error creating link:', error)
@@ -24,7 +24,7 @@ export default function homeViewModel() {
 
     async function delteLink(id) {
         try {
-            await service.delete(`/links/${id}`)
+            await requestProvider.delete(`/links/${id}`)
             setLinks(links.filter(link => link.id !== id))
         } catch (error) {
             console.error('Error deleting link:', error)

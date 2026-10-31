@@ -39,12 +39,13 @@ form {
         flex: 1 0 150px;
         align-self: last baseline;
         position: relative;
-        padding: 13px;
+        padding: 11px;
         background-color: var(--blue);
         color: var(--white);
         border: none;
         border-radius: 8px;
-        font-size: 14px;
+        font: inherit;
+        font-size: 13px;
         font-weight: 600;
         cursor: pointer;
         transition: opacity 0.3s ease;

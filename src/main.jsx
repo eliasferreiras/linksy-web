@@ -1,15 +1,18 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { BrowserRouter } from "react-router-dom";
 import './index.css'
-import Login from './pages/Auth/Login'
-import Register from './pages/Auth/Register'
-import Home from './pages/Home'
 
-const isRegisterPage = window.location.pathname.replace(/\/+$/, '') === '/cadastro'
+import App from "./App";
+import { SessionProvider } from "./contexts/SessionContext";
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {isRegisterPage ? <Register /> : <Login />}
-    {/* <Home /> */}
+    <BrowserRouter>
+            <SessionProvider>
+                <App />
+            </SessionProvider>
+        </BrowserRouter>
   </StrictMode>,
 )

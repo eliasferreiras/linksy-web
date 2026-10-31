@@ -1,7 +1,14 @@
-import '../styles/auth.css'
-import Footer from '../../../components/Footer'
+import navigationProvider from '../../../providers/navigationProvider';
+import '../auth.css'
+import Footer from '../../components/Footer'
 
 export default function Register() {
+    const navigation = navigationProvider();
+
+    function handleGoToLogin() {
+        navigation.navigateToLogin();
+    }
+
     function handleSubmit(event) {
         event.preventDefault()
     }
@@ -63,7 +70,7 @@ export default function Register() {
                     </form>
 
                     <p className="auth-switch">
-                        Já tem uma conta? <a href="/login">Entrar</a>
+                        Já tem uma conta? <button onClick={handleGoToLogin}>Entrar</button>
                     </p>
                 </section>
             </main>

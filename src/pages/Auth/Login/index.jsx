@@ -1,9 +1,47 @@
-import '../styles/auth.css'
-import Footer from '../../../components/Footer'
+import { useState } from 'react'
+import navigationProvider from '../../../providers/navigationProvider';
+import { useSession } from "../../../contexts/SessionContext";
+import '../auth.css'
+
+import Footer from '../../components/Footer'
+import service from '../../../providers/requestProvider'
 
 export default function Login() {
-    function handleSubmit(event) {
+    const { login } = useSession();
+    const navigation = navigationProvider();
+
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [feedback, setFeedback] = useState(null)
+
+    function handleGoToRegister() {
+        navigation.navigateToRegister();
+    }
+
+    async function handleSubmit(event) {
         event.preventDefault()
+        setFeedback(null)
+        setIsSubmitting(true)
+
+        const formData = new FormData(event.currentTarget)
+
+        try {
+            await service.post('/auth/login', {
+                email: formData.get('email'),
+                password: formData.get('password')
+            })
+            setFeedback({ type: 'success', message: 'Login realizado com sucesso.' })
+        } catch (error) {
+            console.error('Error logging in:', error)
+            const apiMessage = error.response?.data?.message
+            setFeedback({
+                type: 'error',
+                message: typeof apiMessage === 'string'
+                    ? apiMessage
+                    : 'Não foi possível fazer login. Verifique seus dados e tente novamente.'
+            })
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     return (
@@ -18,10 +56,10 @@ export default function Login() {
                         <div className="auth-field">
                             <h3 htmlFor="username">Username</h3>
                             <input
-                                id="username"
-                                name="username"
-                                type="text"
-                                autoComplete="username"
+                                id="email"
+                                name="email"
+                                type="email"
+                                autoComplete="email"
                                 required
                             />
                         </div>
@@ -37,11 +75,23 @@ export default function Login() {
                             />
                         </div>
 
-                        <button type="submit">Logar</button>
+                        <button type="submit" disabled={isSubmitting}>
+                            {isSubmitting ? 'Entrando...' : 'Logar'}
+                        </button>
+
                     </form>
 
+                    {feedback && (
+                        <p
+                            className={`auth-feedback ${feedback.type}`}
+                            role={feedback.type === 'error' ? 'alert' : 'status'}
+                        >
+                            {feedback.message}
+                        </p>
+                    )}
+
                     <p className="auth-switch">
-                        Ainda não tem uma conta? <a href="/cadastro">Cadastre-se</a>
+                        Ainda não tem uma conta? <button onClick={handleGoToRegister}>Cadastre-se</button>
                     </p>
                 </section>
             </main>
