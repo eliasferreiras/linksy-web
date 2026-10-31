@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import navigationProvider from '../../../providers/navigationProvider';
+import { Link } from "react-router-dom";
 import { useSession } from "../../../contexts/SessionContext";
 import '../auth.css'
 
@@ -8,14 +8,9 @@ import service from '../../../providers/requestProvider'
 
 export default function Login() {
     const { login } = useSession();
-    const navigation = navigationProvider();
 
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [feedback, setFeedback] = useState(null)
-
-    function handleGoToRegister() {
-        navigation.navigateToRegister();
-    }
 
     async function handleSubmit(event) {
         event.preventDefault()
@@ -91,7 +86,7 @@ export default function Login() {
                     )}
 
                     <p className="auth-switch">
-                        Ainda não tem uma conta? <button onClick={handleGoToRegister}>Cadastre-se</button>
+                        Ainda não tem uma conta? <Link to="/register" className="link">Cadastre-se</Link>
                     </p>
                 </section>
             </main>

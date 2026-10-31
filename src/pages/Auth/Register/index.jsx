@@ -1,14 +1,8 @@
-import navigationProvider from '../../../providers/navigationProvider';
+import { Link } from "react-router-dom";
 import '../auth.css'
 import Footer from '../../components/Footer'
 
 export default function Register() {
-    const navigation = navigationProvider();
-
-    function handleGoToLogin() {
-        navigation.navigateToLogin();
-    }
-
     function handleSubmit(event) {
         event.preventDefault()
     }
@@ -70,7 +64,7 @@ export default function Register() {
                     </form>
 
                     <p className="auth-switch">
-                        Já tem uma conta? <button onClick={handleGoToLogin}>Entrar</button>
+                        Já tem uma conta? <Link to="/login" className="link">Entrar</Link>
                     </p>
                 </section>
             </main>

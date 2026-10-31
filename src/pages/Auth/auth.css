@@ -117,17 +117,14 @@
         margin-top: 20px;
         text-align: center;
 
-        button {
+        .link {
             color: var(--blue);
-            font: inherit;
             font-size: 13px;
             font-weight: 600;
-            background: none;
-            border: none;
-            cursor: pointer;
+            text-decoration: none;
         }
 
-        button:hover {
+        .link:hover {
             text-decoration: underline;
         }
     }
