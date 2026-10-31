@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import requestProvider from '../providers/requestProvider'
 
-export default function homeViewModel() {
+export default function homeService() {
     const [links, setLinks] = useState([])
 
     async function fetchLinks() {
@@ -22,7 +22,7 @@ export default function homeViewModel() {
         }
     }
 
-    async function delteLink(id) {
+    async function deleteLink(id) {
         try {
             await requestProvider.delete(`/links/${id}`)
             setLinks(links.filter(link => link.id !== id))
@@ -35,6 +35,6 @@ export default function homeViewModel() {
         links,
         fetchLinks,
         createLink,
-        delteLink
+        deleteLink
     }
 }

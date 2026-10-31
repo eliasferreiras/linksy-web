@@ -1,6 +1,6 @@
 import './style.css'
 import { useState, useEffect } from 'react'
-import service from '../../services/homeService'
+import homeService from '../../services/homeService'
 
 import Header from '../components/Header'
 import CardLink from '../components/CardLink'
@@ -10,20 +10,14 @@ import Modal from '../components/Modal'
 import ConfirmDelete from '../components/ConfirmDelete'
 
 export default function Home() {
+    const service = homeService()
 
     let [selectedItem, setSelectedItem] = useState(null)
-
-    const { 
-        links,
-        fetchLinks,
-        createLink,
-        delteLink
-    } = service()
 
     var [openModal, setOpenModal] = useState(false)
 
     useEffect(() => {
-        fetchLinks()
+        service.fetchLinks()
     }, [])
 
     function openModalAction(link) {
@@ -37,7 +31,7 @@ export default function Home() {
     }
 
     async function confirmDeleteAction() {
-        await delteLink(selectedItem.id)
+        await service.deleteLink(selectedItem.id)
         closeModalAction()
     }
 
@@ -49,13 +43,13 @@ export default function Home() {
                 <h1 className="mainContent">Criar link curto</h1>
                 <section className="create shadow-container mainContent">
                     <h2>Detalhes do Link</h2>
-                    <FormLink createAction={createLink}/>
+                    <FormLink createAction={service.createLink}/>
                 </section>
 
                 <h1 className="mainContent">Links</h1>
                 <section className="links mainContent">
                     { 
-                        links.map(link => {
+                        service.links.map(link => {
                             return (
                                 <CardLink key={link.id} link={link} deleteAction={
                                     () => openModalAction(link)
