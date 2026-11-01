@@ -1,24 +1,15 @@
-import { useState } from 'react'
 import { Link } from "react-router-dom";
-import { useSession } from "../../../contexts/SessionContext";
 import Routes from "../../../enums/routes";
-import authService from '../../../services/authService';
+import loginViewModel from './loginViewModel';
 import '../auth.css';
 
 import Footer from '../../components/Footer';
 
 export default function Login() {
-    const service = authService();
-    const session = useSession();
-
-    const [isSubmitting, setIsSubmitting] = useState(false)
-    const [feedback, setFeedback] = useState(null)
+    const viewModel = loginViewModel();
 
     async function handleSubmit(event) {
         event.preventDefault()
-
-        setFeedback(null)
-        setIsSubmitting(true)
 
         const formData = new FormData(event.currentTarget)
         const data = {
@@ -26,26 +17,7 @@ export default function Login() {
             password: formData.get('password')
         }
 
-        try {
-            const userData = await service.login(data);
-            session.login(userData);
-        } catch (error) {
-            const status = error.response?.status;
-
-            if (status === 400) {
-                setFeedback({
-                    type: 'error',
-                    message: 'E-mail ou senha inválidos.'
-                });
-            } else {
-                setFeedback({
-                    type: 'error',
-                    message: 'Não foi possível fazer login. Tente novamente.'
-                });
-            }
-        } finally {
-            setIsSubmitting(false)
-        }
+        await viewModel.login(data);
     }
 
     return (
@@ -79,15 +51,15 @@ export default function Login() {
                             />
                         </div>
 
-                        <button type="submit" disabled={isSubmitting}>
-                            {isSubmitting ? 'Entrando...' : 'Logar'}
+                        <button type="submit" disabled={viewModel.isSubmitting}>
+                            {viewModel.isSubmitting ? 'Entrando...' : 'Logar'}
                         </button>
 
                     </form>
 
-                    {feedback && (
-                        <p className={`auth-feedback ${feedback.type}`}>
-                            {feedback.message}
+                    {viewModel.feedback && (
+                        <p className={`auth-feedback ${viewModel.feedback.type}`}>
+                            {viewModel.feedback.message}
                         </p>
                     )}
 
