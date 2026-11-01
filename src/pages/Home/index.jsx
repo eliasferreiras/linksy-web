@@ -54,7 +54,7 @@ export default function Home() {
                 </Modal>
 
                 <Modal 
-                    title="Sair?" 
+                    title="Sair?"
                     isOpen={viewModel.isOpenLogoutModal}
                     closeAction={viewModel.closeLogoutModal}
                 >
