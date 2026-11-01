@@ -8,6 +8,19 @@ export default function linkViewModel() {
 
     const [links, setLinks] = useState([])
 
+    let [selectedLinkIdToDelete, setSelectedLinkToDelete] = useState(null)
+    var [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
+
+    function openDeleteModal(linkId) {
+        setSelectedLinkToDelete(linkId)
+        setIsOpenDeleteModal(true)
+    }
+
+    function closeDeleteModal() {
+        setSelectedLinkToDelete(null)
+        setIsOpenDeleteModal(false)
+    }
+
     async function fetchLinks() {
         try {
             const links = await service.fetchLinks()
@@ -26,24 +39,24 @@ export default function linkViewModel() {
         }
     }
 
-    async function deleteLink(id) {
+    async function deleteLink() {
+        closeDeleteModal()
+
         try {
-            await service.deleteLink(id)
-            setLinks(links.filter(link => link.id !== id))
+            await service.deleteLink(selectedLinkIdToDelete)
+            setLinks(links.filter(link => link.id !== selectedLinkIdToDelete))
         } catch (error) {
             console.error('Error deleting link:', error)
         }
     }
 
-    function logout() {
-        session.logout()
-    }
-
     return {
         links,
+        isOpenDeleteModal,
+        openDeleteModal,
+        closeDeleteModal,
         fetchLinks,
         createLink,
-        deleteLink,
-        logout
+        deleteLink
     }
 }

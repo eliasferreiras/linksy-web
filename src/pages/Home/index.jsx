@@ -1,7 +1,6 @@
+import { useEffect } from 'react'
 import './style.css'
-import { useState, useEffect } from 'react'
 import linkViewModel from './linkViewModel'
-import { useSession } from '../../contexts/SessionContext'
 
 import Header from '../components/Header'
 import CardLink from '../components/CardLink'
@@ -12,33 +11,14 @@ import ConfirmDelete from '../components/ConfirmDelete'
 
 export default function Home() {
     const viewModel = linkViewModel()
-    const session = useSession()
-
-    let [selectedItem, setSelectedItem] = useState(null)
-    var [openModal, setOpenModal] = useState(false)
 
     useEffect(() => {
         viewModel.fetchLinks()
     }, [])
 
-    function openModalAction(link) {
-        setSelectedItem(link)
-        setOpenModal(true)
-    }
-
-    function closeModalAction() {
-        setSelectedItem(null)
-        setOpenModal(false)
-    }
-
-    async function confirmDeleteAction() {
-        await viewModel.deleteLink(selectedItem.id)
-        closeModalAction()
-    }
-
     return (
         <div className="container">
-            <Header user={session.user} logoutAction={viewModel.logout} />
+            <Header />
 
             <main>
                 <h1 className="mainContent">Criar link curto</h1>
@@ -53,7 +33,7 @@ export default function Home() {
                         viewModel.links.map(link => {
                             return (
                                 <CardLink key={link.id} link={link} deleteAction={
-                                    () => openModalAction(link)
+                                    () => viewModel.openDeleteModal(link.id)
                                 }/>
                             )
                         })
@@ -62,12 +42,12 @@ export default function Home() {
 
                 <Modal 
                     title="Deletar Link?" 
-                    isOpen={openModal} 
-                    closeAction={closeModalAction}
+                    isOpen={viewModel.isOpenDeleteModal}
+                    closeAction={viewModel.closeDeleteModal}
                 >
                     <ConfirmDelete 
-                        cancelAction={closeModalAction}
-                        confirmAction={confirmDeleteAction}
+                        cancelAction={viewModel.closeDeleteModal}
+                        confirmAction={viewModel.deleteLink}
                     />
                 </Modal>
             </main>
