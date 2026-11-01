@@ -86,9 +86,7 @@ export default function Login() {
                     </form>
 
                     {feedback && (
-                        <p
-                            className={`auth-feedback ${feedback.type}`}
-                        >
+                        <p className={`auth-feedback ${feedback.type}`}>
                             {feedback.message}
                         </p>
                     )}
