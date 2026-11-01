@@ -1,7 +1,7 @@
 import './style.css'
 import { useSession } from '../../../contexts/SessionContext'
 
-export default function Header() {
+export default function Header({logoutAction}) {
     const session = useSession()
 
     return (
@@ -11,7 +11,7 @@ export default function Header() {
                 <div className="profile">
                     <h2>{session.user?.name || "User Name"}</h2>
                     <i className="fa-regular fa-user"></i>
-                    <button onClick={session.logout} title="Sair">
+                    <button onClick={logoutAction} title="Sair">
                         <i class="fa-solid fa-arrow-right-from-bracket icon"></i>
                     </button>
                 </div>

@@ -8,8 +8,9 @@ export default function linkViewModel() {
 
     const [links, setLinks] = useState([])
 
-    let [selectedLinkIdToDelete, setSelectedLinkToDelete] = useState(null)
-    var [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
+    const [selectedLinkIdToDelete, setSelectedLinkToDelete] = useState(null)
+    const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
+    const [isOpenLogoutModal, setIsOpenLogoutModal] = useState(false)
 
     function openDeleteModal(linkId) {
         setSelectedLinkToDelete(linkId)
@@ -19,6 +20,19 @@ export default function linkViewModel() {
     function closeDeleteModal() {
         setSelectedLinkToDelete(null)
         setIsOpenDeleteModal(false)
+    }
+
+    function openLogoutModal() {
+        setIsOpenLogoutModal(true)
+    }
+
+    function closeLogoutModal() {
+        setIsOpenLogoutModal(false)
+    }
+
+    function logout() {
+        closeLogoutModal()
+        session.logout()
     }
 
     async function fetchLinks() {
@@ -55,6 +69,10 @@ export default function linkViewModel() {
         isOpenDeleteModal,
         openDeleteModal,
         closeDeleteModal,
+        isOpenLogoutModal,
+        openLogoutModal,
+        closeLogoutModal,
+        logout,
         fetchLinks,
         createLink,
         deleteLink

@@ -7,7 +7,7 @@ import CardLink from '../components/CardLink'
 import FormLink from '../components/FormLink'
 import Footer from '../components/Footer'
 import Modal from '../components/Modal'
-import ConfirmDelete from '../components/ConfirmDelete'
+import ConfirmDestructiveAction from '../components/ConfirmDelete'
 
 export default function Home() {
     const viewModel = linkViewModel()
@@ -18,7 +18,7 @@ export default function Home() {
 
     return (
         <div className="container">
-            <Header />
+            <Header logoutAction={viewModel.openLogoutModal} />
 
             <main>
                 <h1 className="mainContent">Criar link curto</h1>
@@ -45,9 +45,24 @@ export default function Home() {
                     isOpen={viewModel.isOpenDeleteModal}
                     closeAction={viewModel.closeDeleteModal}
                 >
-                    <ConfirmDelete 
+                    <ConfirmDestructiveAction 
+                        message={"Você tem certeza que deseja deletar esse link?\nEssa ação não poderá ser desfeita."}
+                        actionTitle="Deletar"
                         cancelAction={viewModel.closeDeleteModal}
                         confirmAction={viewModel.deleteLink}
+                    />
+                </Modal>
+
+                <Modal 
+                    title="Sair?" 
+                    isOpen={viewModel.isOpenLogoutModal}
+                    closeAction={viewModel.closeLogoutModal}
+                >
+                    <ConfirmDestructiveAction 
+                        message={"Você tem certeza que deseja sair?\nTodos os dados não salvos serão perdidos."}
+                        actionTitle="Sair"
+                        cancelAction={viewModel.closeLogoutModal}
+                        confirmAction={viewModel.logout}
                     />
                 </Modal>
             </main>
