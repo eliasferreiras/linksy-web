@@ -3,10 +3,10 @@ import APIRoutes from '../enums/apiRoutes';
 
 export default function authService() {
     async function login(data) {
-        const response = await requestProvider.post(APIRoutes.LOGIN, {
-            email: data.email,
-            password: data.password
-        });
+        const response = await requestProvider.post(
+            APIRoutes.LOGIN,
+            data
+        );
 
         return response.data;
     }

@@ -1,21 +1,18 @@
 import './style.css'
 import { useRef } from 'react'
-import { useSession } from "../../../contexts/SessionContext";
 
 export default function FormLink({ createAction }) {
-    const { logout } = useSession();
     const titleInput = useRef()
     const targetUrlInput = useRef()
 
     function createLink() {
-        // const newLink = {
-        //     title: titleInput.current.value,
-        //     targetURL: targetUrlInput.current.value
-        // }
+        const newLink = {
+            title: titleInput.current.value,
+            targetURL: targetUrlInput.current.value
+        }
 
-        // clearForm()
-        // createAction(newLink)
-        logout();
+        clearForm()
+        createAction(newLink)
     }
 
     function clearForm() {

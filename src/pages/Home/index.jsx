@@ -1,6 +1,7 @@
 import './style.css'
 import { useState, useEffect } from 'react'
-import homeService from '../../services/homeService'
+import linkViewModel from './linkViewModel'
+import { useSession } from '../../contexts/SessionContext'
 
 import Header from '../components/Header'
 import CardLink from '../components/CardLink'
@@ -10,14 +11,14 @@ import Modal from '../components/Modal'
 import ConfirmDelete from '../components/ConfirmDelete'
 
 export default function Home() {
-    const service = homeService()
+    const viewModel = linkViewModel()
+    const session = useSession()
 
     let [selectedItem, setSelectedItem] = useState(null)
-
     var [openModal, setOpenModal] = useState(false)
 
     useEffect(() => {
-        service.fetchLinks()
+        viewModel.fetchLinks()
     }, [])
 
     function openModalAction(link) {
@@ -31,25 +32,25 @@ export default function Home() {
     }
 
     async function confirmDeleteAction() {
-        await service.deleteLink(selectedItem.id)
+        await viewModel.deleteLink(selectedItem.id)
         closeModalAction()
     }
 
     return (
         <div className="container">
-            <Header />
+            <Header user={session.user} logoutAction={viewModel.logout} />
 
             <main>
                 <h1 className="mainContent">Criar link curto</h1>
                 <section className="create shadow-container mainContent">
                     <h2>Detalhes do Link</h2>
-                    <FormLink createAction={service.createLink}/>
+                    <FormLink createAction={viewModel.createLink}/>
                 </section>
 
                 <h1 className="mainContent">Links</h1>
                 <section className="links mainContent">
                     { 
-                        service.links.map(link => {
+                        viewModel.links.map(link => {
                             return (
                                 <CardLink key={link.id} link={link} deleteAction={
                                     () => openModalAction(link)

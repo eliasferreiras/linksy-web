@@ -17,11 +17,22 @@ header {
         justify-content: space-between;
         flex-direction: row;
 
+        h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
         .profile {
             display: flex;
             align-items: center;
 
-            i {
+            h2 {
+                font-size: 16px;
+                margin-right: 12px;
+                font-weight: 500;
+            }
+
+            .fa-user {
                 display: flex;
                 font-size: 14px;
                 width: 28px;
@@ -33,17 +44,23 @@ header {
                 border-radius: 50%;
             }
 
-            h2 {
-                font-size: 16px;
-                margin-right: 12px;
-                font-weight: 500;
+            button {
+                background: none;
+                border: none;
+                cursor: pointer;
+
+                .icon {
+                    display: flex;
+                    font-size: 14px;
+                    width: 32px;
+                    height: 32px;
+                    align-items: center;
+                    justify-content: center;
+                    background: none;
+                    color: var(--white);
+                    margin-left: 8px;
+                }
             }
         }
-
-        h1 {
-            font-size: 20px;
-            font-weight: 600;
-        }
     }
-
 }
