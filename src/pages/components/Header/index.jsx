@@ -4,7 +4,7 @@ export default function Header({ user, logoutAction }) {
     return (
         <header>
             <div className='header-container'>
-                <h1>Linksy</h1>
+                <img src="/logo-inline-onbrand.svg" alt="Linksy" />
                 <div className="profile">
                     <h2>{user?.name || "User Name"}</h2>
                     <i className="fa-regular fa-user"></i>
