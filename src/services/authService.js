@@ -11,7 +11,17 @@ export default function authService() {
         return response.data;
     }
 
+    async function register(data) {
+        const response = await requestProvider.post(
+            APIRoutes.REGISTER,
+            data
+        );
+
+        return response.data;
+    }
+
     return {
-        login
+        login,
+        register
     };
 }

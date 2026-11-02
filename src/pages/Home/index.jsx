@@ -7,7 +7,7 @@ import CardLink from '../components/CardLink'
 import FormLink from '../components/FormLink'
 import Footer from '../components/Footer'
 import Modal from '../components/Modal'
-import ConfirmDestructiveAction from '../components/ConfirmDelete'
+import ConfirmDestructiveAction from '../components/ConfirmDestructiveAction'
 
 export default function Home() {
     const viewModel = linkViewModel()

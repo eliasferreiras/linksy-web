@@ -19,7 +19,7 @@ export default function loginViewModel() {
         } catch (error) {
             const status = error.response?.status;
 
-            if (status === 400) {
+            if (status === 400) { // change to 401
                 setFeedback({
                     type: 'error',
                     message: 'E-mail ou senha inválidos.'

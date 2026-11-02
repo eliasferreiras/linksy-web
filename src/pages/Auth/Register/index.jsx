@@ -1,11 +1,41 @@
 import { Link } from "react-router-dom";
 import '../auth.css'
+import registerViewModel from './registerViewModel';
+import { useNavigate } from "react-router-dom";
+
 import Footer from '../../components/Footer'
 import Routes from "../../../enums/routes";
+import Modal from "../../components/Modal";
+import ConfirmAction from "../../components/ConfirmAction";
 
 export default function Register() {
-    function handleSubmit(event) {
+    const viewModel = registerViewModel();
+    const navigate = useNavigate();
+
+    async function handleSubmit(event) {
         event.preventDefault()
+
+        const formData = new FormData(event.currentTarget)
+
+        const data = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            password: formData.get('password'),
+            confirmPassword: formData.get('confirmPassword')
+        }
+
+        await viewModel.register(data);
+
+        clearForm();
+    }
+
+    function clearForm() {
+        const form = document.querySelector('.auth-form');
+        form.reset();
+    }
+
+    function goToLogin() {
+        navigate(Routes.LOGIN)
     }
 
     return (
@@ -29,12 +59,12 @@ export default function Register() {
                         </div>
 
                         <div className="auth-field">
-                            <h3 htmlFor="register-username">Email</h3>
+                            <h3 htmlFor="register-email">Email</h3>
                             <input
-                                id="register-username"
-                                name="username"
-                                type="text"
-                                autoComplete="username"
+                                id="register-email"
+                                name="email"
+                                type="email"
+                                autoComplete="email"
                                 required
                             />
                         </div>
@@ -61,13 +91,33 @@ export default function Register() {
                             />
                         </div>
 
-                        <button type="submit">Cadastrar</button>
+                        <button type="submit" disabled={viewModel.isSubmitting}>
+                            {viewModel.isSubmitting ? 'Cadastrando...' : 'Cadastrar'}
+                        </button>
                     </form>
+
+                    {viewModel.feedback && (
+                        <p className={`auth-feedback ${viewModel.feedback.type}`}>
+                            {viewModel.feedback.message}
+                        </p>
+                    )}
 
                     <p className="auth-switch">
                         Já tem uma conta? <Link to={Routes.LOGIN}  className="link">Entrar</Link>
                     </p>
                 </section>
+
+                <Modal 
+                    title="Conta criada com sucesso!" 
+                    isOpen={viewModel.isOpenRegisterModal}
+                    closeAction={viewModel.closeRegisterModal}
+                >
+                    <ConfirmAction 
+                        message={"Você já pode fazer login e começar a usar o Linksy."}
+                        actionTitle="Logar-se"
+                        confirmAction={goToLogin}
+                    />
+                </Modal>
             </main>
 
             <Footer />
