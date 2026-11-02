@@ -33,7 +33,7 @@ export default function FormLink({ createAction }) {
             </div>
             
             <button type="button" onClick={createLink}>
-                <span>Salvar</span> <i className="fa-solid fa-download"></i>
+                <span>Salvar</span>
             </button>
         </form>
     )

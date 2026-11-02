@@ -10,7 +10,7 @@ export function SessionProvider({ children }) {
     });
 
     const [token, setToken] = useState(() => {
-        const storedToken = localStorage.getItem("token");
+        const storedToken = localStorage.getItem("accessToken");
         return storedToken ? storedToken : null;
     });
 
@@ -25,15 +25,21 @@ export function SessionProvider({ children }) {
     }, [])
 
     function login(userData) {
-        localStorage.setItem("user", JSON.stringify(userData));
-        localStorage.setItem("token", userData.token);
-        setUser(userData);
+        const user = {
+            name: userData.name,
+            username: userData.username,
+            roles: userData.roles,
+        }
+
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("accessToken", userData.token);
+        setUser(user);
         setToken(userData.token);
     }
 
     function logout() {
         localStorage.removeItem("user");
-        localStorage.removeItem("token");
+        localStorage.removeItem("accessToken");
         setUser(null);
         setToken(null);
     }

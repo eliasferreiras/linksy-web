@@ -38,7 +38,6 @@ form {
     button {
         flex: 1 0 150px;
         align-self: last baseline;
-        position: relative;
         padding: 11px;
         background-color: var(--blue);
         color: var(--white);
@@ -49,11 +48,6 @@ form {
         font-weight: 600;
         cursor: pointer;
         transition: opacity 0.3s ease;
-
-        i {
-            position: absolute;
-            right: 18px;
-        }
     }
 
     button:hover {
