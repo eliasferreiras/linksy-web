@@ -10,15 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
-      # 1. Baixa o artifact do build
       - name: Download Artifact
         uses: actions/download-artifact@v4
         with:
           name: linksy-dist
           path: dist/
 
-      # 5. Configura o acesso SSH
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh
@@ -29,7 +26,6 @@ jobs:
           echo "${{ secrets.SERVER_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
 
-      # 6. Publica os arquivos no servidor
       - name: Deploy
         run: |
           rsync -avz --delete \
