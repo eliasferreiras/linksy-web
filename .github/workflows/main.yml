@@ -9,6 +9,12 @@ permissions:
 
 jobs:
   build:
-    name: Build and Publish
+    name: Build Site
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
+
+  deploy:
+    name: Publish Site
+    needs: build
     uses: ./.github/workflows/publish.yml
     secrets: inherit
