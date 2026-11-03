@@ -23,6 +23,9 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
+          VITE_REDIRECT_URL: ${{ vars.VITE_REDIRECT_URL }}
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
