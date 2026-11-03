@@ -1,5 +1,5 @@
 import './style.css'
-import { formatDate } from '../../helpers/dateHelper.js'
+import { formatDate } from '../../../helpers/dateHelper.js'
 
 export default function CardLink({ link, deleteAction }) {
 

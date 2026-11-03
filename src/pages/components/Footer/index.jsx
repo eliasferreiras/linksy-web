@@ -3,7 +3,7 @@ import './style.css'
 export default function Footer() {
     return (
         <footer>
-            <p>© Elias Ferreira 2025</p>
+            <p>© Elias Labs 2026</p>
         </footer>
     )
 }

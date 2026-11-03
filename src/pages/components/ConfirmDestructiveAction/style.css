@@ -1,4 +1,4 @@
-.confirm-delete {
+.confirm-action {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -15,6 +15,7 @@
         margin-top: 20px;
 
         button {
+            font: inherit;
             padding: 8px 16px;
             font-size: 14px;
             border: none;
@@ -32,12 +33,12 @@
             background-color: var(--medium-gray);
         }
 
-        .delete-button {
+        .destructive-main-button {
             background-color: var(--red);
             color: var(--white);
         }
 
-        .delete-button:hover {
+        .destructive-main-button:hover {
             background-color: var(--dark-red);
         }
     }

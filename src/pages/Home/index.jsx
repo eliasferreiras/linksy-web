@@ -1,64 +1,39 @@
+import { useEffect } from 'react'
 import './style.css'
-import { useState, useEffect } from 'react'
-import homeViewModel from './viewModel'
+import linkViewModel from './linkViewModel'
 
-import Header from '../../components/Header'
-import CardLink from '../../components/CardLink'
-import FormLink from '../../components/FormLink'
-import Footer from '../../components/Footer'
-import Modal from '../../components/Modal'
-import ConfirmDelete from '../../components/ConfirmDelete'
+import Header from '../components/Header'
+import CardLink from '../components/CardLink'
+import FormLink from '../components/FormLink'
+import Footer from '../components/Footer'
+import Modal from '../components/Modal'
+import ConfirmDestructiveAction from '../components/ConfirmDestructiveAction'
 
 export default function Home() {
-
-    let [selectedItem, setSelectedItem] = useState(null)
-
-    const { 
-        links,
-        fetchLinks,
-        createLink,
-        delteLink
-    } = homeViewModel()
-
-    var [openModal, setOpenModal] = useState(false)
+    const viewModel = linkViewModel()
 
     useEffect(() => {
-        fetchLinks()
+        viewModel.fetchLinks()
     }, [])
-
-    function openModalAction(link) {
-        setSelectedItem(link)
-        setOpenModal(true)
-    }
-
-    function closeModalAction() {
-        setSelectedItem(null)
-        setOpenModal(false)
-    }
-
-    async function confirmDeleteAction() {
-        await delteLink(selectedItem.id)
-        closeModalAction()
-    }
 
     return (
         <div className="container">
-            <Header />
+            <Header logoutAction={viewModel.openLogoutModal} />
 
             <main>
                 <h1 className="mainContent">Criar link curto</h1>
                 <section className="create shadow-container mainContent">
                     <h2>Detalhes do Link</h2>
-                    <FormLink createAction={createLink}/>
+                    <FormLink createAction={viewModel.createLink}/>
                 </section>
 
                 <h1 className="mainContent">Links</h1>
                 <section className="links mainContent">
                     { 
-                        links.map(link => {
+                        viewModel.links.map(link => {
                             return (
                                 <CardLink key={link.id} link={link} deleteAction={
-                                    () => openModalAction(link)
+                                    () => viewModel.openDeleteModal(link.id)
                                 }/>
                             )
                         })
@@ -67,12 +42,27 @@ export default function Home() {
 
                 <Modal 
                     title="Deletar Link?" 
-                    isOpen={openModal} 
-                    closeAction={closeModalAction}
+                    isOpen={viewModel.isOpenDeleteModal}
+                    closeAction={viewModel.closeDeleteModal}
                 >
-                    <ConfirmDelete 
-                        cancelAction={closeModalAction}
-                        confirmAction={confirmDeleteAction}
+                    <ConfirmDestructiveAction 
+                        message={"Você tem certeza que deseja deletar esse link?\nEssa ação não poderá ser desfeita."}
+                        actionTitle="Deletar"
+                        cancelAction={viewModel.closeDeleteModal}
+                        confirmAction={viewModel.deleteLink}
+                    />
+                </Modal>
+
+                <Modal 
+                    title="Sair?"
+                    isOpen={viewModel.isOpenLogoutModal}
+                    closeAction={viewModel.closeLogoutModal}
+                >
+                    <ConfirmDestructiveAction 
+                        message={"Você tem certeza que deseja sair?\nTodos os dados não salvos serão perdidos."}
+                        actionTitle="Sair"
+                        cancelAction={viewModel.closeLogoutModal}
+                        confirmAction={viewModel.logout}
                     />
                 </Modal>
             </main>

@@ -1,0 +1,14 @@
+name: Build And Publish Production
+
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+      contents: write
+
+jobs:
+  build:
+    name: Build and Publish
+    uses: ./.github/workflows/publish.yml
+    secrets: inherit
