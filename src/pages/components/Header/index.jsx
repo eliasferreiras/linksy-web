@@ -33,7 +33,10 @@ export default function Header({logoutAction}) {
             <div className='header-container'>
                 <img src="/logo-inline-onbrand.svg" alt="Linksy" />
                 <div className="profile" ref={menuRef}>
-                    <h2>{session.user?.name || "User Name"}</h2>
+                    <div className="profile-info">
+                        <h2>{session.user?.name || "User Name"}</h2>
+                        {session.user?.roles?.includes("ROLE_ADMIN") && <p>ADMIN</p>}
+                    </div>
 
                     <button onClick={toggleMenu}>
                         <i className="fa-regular fa-user"></i>
@@ -41,6 +44,7 @@ export default function Header({logoutAction}) {
 
                     {isOpen && (
                         <div className="dropdown-menu">
+                            {session.user?.username && <p>{session.user.username}</p>}
                             <button onClick={handleLogout}>
                                 Sair <i className="fa-solid fa-arrow-right-from-bracket icon"></i>
                             </button>
